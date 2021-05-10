@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { connectWallet } from "./utils/interact.js";
 
 const Minter = (props) => {
 
@@ -15,7 +16,13 @@ const Minter = (props) => {
   });
 
   const connectWalletPressed = async () => { //TODO: implement
-   
+    const walletResponse = await connectWallet();
+    setConnectedStatus(walletResponse.connectedStatus);
+    setStatus(walletResponse.status);
+    if (isConnected) {
+      setWallet(walletAddress);
+    }
+
   };
 
   const onMintPressed = async () => { //TODO: implement
@@ -36,9 +43,9 @@ const Minter = (props) => {
       </button>
 
       <br></br>
-      <h1 id="title">🧙‍♂️ Alchemy NFT Minter</h1>
+      <h1 id="title">🧙‍♂️ The HIVE Test NFT Minter</h1>
       <p>
-        Simply add your asset's link, name, and description, then press "Mint."
+        Fill out below form and press "Mint NFT"
       </p>
       <form>
         <h2>🖼 Link to asset: </h2>
