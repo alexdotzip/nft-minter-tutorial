@@ -12,7 +12,22 @@ const Minter = (props) => {
   const [url, setURL] = useState("");
  
   useEffect(async () => { //TODO: implement
-    
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: "eth_accounts" }) //get metamask
+        if (accounts.length) { //if connected is true
+          setConnectedStatus(true);
+          setWallet(accounts[0]);
+        } else {
+          setConnectedStatus(false);
+          setStatus("Connect your Ethereum Wallet using the top right button")
+        }
+      } catch {
+        setConnectedStatus(false);
+        setStatus("Connect your Ethereum Wallet using the top right button!" + walletAddress);
+      }
+    }
+
   });
 
   const connectWalletPressed = async () => { //TODO: implement
