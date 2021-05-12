@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { connectWallet } from "./utils/interact.js";
+import { connectWallet, mintNFT } from "./utils/interact.js";
+//import { connectWallet, mintNFT } from "./utils/interact.js";
 
 const Minter = (props) => {
 
@@ -11,6 +12,7 @@ const Minter = (props) => {
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
  
+  // eslint-disable-next-line
   useEffect(async () => { //TODO: implement
     if (window.ethereum) {
       try {
@@ -41,7 +43,8 @@ const Minter = (props) => {
   };
 
   const onMintPressed = async () => { //TODO: implement
-    
+    const { status } = await mintNFT(url, name, description);
+    setStatus(status);
   };
 
   return (
